@@ -1,7 +1,7 @@
-import { Contract, DeployMethod, getContractInstanceFromInstantiationParams, } from "@aztec/aztec.js/contracts";
-import { Fr } from "@aztec/aztec.js/fields";
-import { PublicKeys } from "@aztec/aztec.js/keys";
-import { getDefaultInitializer } from "@aztec/stdlib/abi";
+import { Contract, DeployMethod, getContractInstanceFromInstantiationParams, } from "@aztec-labs/aztec.js/contracts";
+import { Fr } from "@aztec-labs/aztec.js/fields";
+import { PublicKeys } from "@aztec-labs/aztec.js/keys";
+import { getDefaultInitializer } from "@aztec-labs/stdlib/abi";
 import { SponsoredFpcContractArtifact } from "./artifacts/SponsoredFpc.js";
 import { constructorArgs } from "./config.js";
 export async function deploySponsoredFpc(options) {

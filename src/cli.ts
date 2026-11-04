@@ -2,8 +2,8 @@
 import { readFile } from "node:fs/promises";
 import { pathToFileURL } from "node:url";
 import { resolve } from "node:path";
-import type { AztecAddress } from "@aztec/aztec.js/addresses";
-import type { Wallet } from "@aztec/aztec.js/wallet";
+import type { AztecAddress } from "@aztec-labs/aztec.js/addresses";
+import type { Wallet } from "@aztec-labs/aztec.js/wallet";
 import { deploySponsoredFpc } from "./deploy.js";
 import type { SponsoredFpcConfig } from "./config.js";
 

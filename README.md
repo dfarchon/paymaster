@@ -21,7 +21,7 @@ pnpm build
 pnpm test
 ```
 
-Aztec CLI `5.2.0` is required.
+Aztec CLI `6.0.0` is required.
 
 ## Deploy
 

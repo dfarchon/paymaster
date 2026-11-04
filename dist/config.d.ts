@@ -1,5 +1,5 @@
-import { AztecAddress } from "@aztec/aztec.js/addresses";
-import { Fr } from "@aztec/aztec.js/fields";
+import { AztecAddress } from "@aztec-labs/aztec.js/addresses";
+import { Fr } from "@aztec-labs/aztec.js/fields";
 export declare const MAX_ALLOWED_TARGETS = 12;
 export declare const MAX_ALLOWED_ACCOUNT_CLASSES = 4;
 export type NamedValue = {

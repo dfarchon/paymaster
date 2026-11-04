@@ -1,9 +1,10 @@
-import { type GasProfile, type SendOnceContext } from "@alejoamiras/quota-paymaster";
-import { AztecAddress } from "@aztec/aztec.js/addresses";
-import type { ContractMethod } from "@aztec/aztec.js/contracts";
-import type { AztecNode } from "@aztec/aztec.js/node";
-import type { Wallet } from "@aztec/aztec.js/wallet";
-import { type TxHash } from "@aztec/stdlib/tx";
+import { AztecAddress } from "@aztec-labs/aztec.js/addresses";
+import type { ContractMethod } from "@aztec-labs/aztec.js/contracts";
+import type { AztecNode } from "@aztec-labs/aztec.js/node";
+import type { Wallet } from "@aztec-labs/aztec.js/wallet";
+import { type TxHash } from "@aztec-labs/stdlib/tx";
+import { type GasProfile } from "./gas.js";
+import { SendOnceContext } from "./send-once.js";
 export type SponsoredFpcClientOptions = {
     wallet: Wallet;
     node: AztecNode;

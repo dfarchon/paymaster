@@ -1,7 +1,7 @@
-import { AztecAddress } from '@aztec/aztec.js/addresses';
-import { type AztecAddressLike, type ContractArtifact, type FieldLike, type FunctionSelectorLike, type OptionLike } from '@aztec/aztec.js/abi';
-import { ContractBase, ContractFunctionInteraction, type ContractMethod, type ContractStorageLayout, type DeployInstantiationOptions, DeployMethod } from '@aztec/aztec.js/contracts';
-import type { Wallet } from '@aztec/aztec.js/wallet';
+import { AztecAddress } from '@aztec-labs/aztec.js/addresses';
+import { type AztecAddressLike, type ContractArtifact, type FieldLike, type FunctionSelectorLike, type OptionLike } from '@aztec-labs/aztec.js/abi';
+import { ContractBase, ContractFunctionInteraction, type ContractMethod, type ContractStorageLayout, type DeployInstantiationOptions, DeployMethod } from '@aztec-labs/aztec.js/contracts';
+import type { Wallet } from '@aztec-labs/aztec.js/wallet';
 export declare const SponsoredFpcContractArtifact: ContractArtifact;
 /**
  * Type-safe interface for contract SponsoredFpc;

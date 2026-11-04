@@ -1,25 +1,24 @@
-import {
-  createSendOnceContext,
-  maxFeePerGasWithHeadroom,
-  sponsoredFeeFloorWei,
-  type GasProfile,
-  type SendOnceContext,
-} from "@alejoamiras/quota-paymaster";
-import { AztecAddress } from "@aztec/aztec.js/addresses";
-import type { ContractMethod } from "@aztec/aztec.js/contracts";
-import { Fr } from "@aztec/aztec.js/fields";
-import type { AztecNode } from "@aztec/aztec.js/node";
-import { getFeeJuiceBalance } from "@aztec/aztec.js/utils";
-import type { Wallet } from "@aztec/aztec.js/wallet";
-import { DefaultEntrypoint } from "@aztec/entrypoints/default";
-import { EncodedAppEntrypointCalls } from "@aztec/entrypoints/encoding";
-import { Gas, GasFees, GasSettings } from "@aztec/stdlib/gas";
-import { ExecutionPayload, type TxHash } from "@aztec/stdlib/tx";
+import { AztecAddress } from "@aztec-labs/aztec.js/addresses";
+import type { ContractMethod } from "@aztec-labs/aztec.js/contracts";
+import { Fr } from "@aztec-labs/aztec.js/fields";
+import type { AztecNode } from "@aztec-labs/aztec.js/node";
+import { getFeeJuiceBalance } from "@aztec-labs/aztec.js/utils";
+import type { Wallet } from "@aztec-labs/aztec.js/wallet";
+import { DefaultEntrypoint } from "@aztec-labs/entrypoints/default";
+import { EncodedAppEntrypointCalls } from "@aztec-labs/entrypoints/encoding";
+import { Gas, GasFees, GasSettings } from "@aztec-labs/stdlib/gas";
+import { ExecutionPayload, type TxHash } from "@aztec-labs/stdlib/tx";
 
 import {
   SponsoredFpcContract,
   SponsoredFpcContractArtifact,
 } from "./artifacts/SponsoredFpc.js";
+import {
+  maxFeePerGasWithHeadroom,
+  sponsoredFeeFloorWei,
+  type GasProfile,
+} from "./gas.js";
+import { SendOnceContext } from "./send-once.js";
 
 const ACCOUNT_MAX_CALLS = 5;
 
@@ -41,7 +40,7 @@ export class SponsoredFpcClient {
       typeof options.address === "string"
         ? AztecAddress.fromStringUnsafe(options.address)
         : options.address;
-    this.sendContext = createSendOnceContext(options.nodeUrl);
+    this.sendContext = new SendOnceContext(options.nodeUrl);
   }
 
   async register(): Promise<void> {

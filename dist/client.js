@@ -1,12 +1,13 @@
-import { createSendOnceContext, maxFeePerGasWithHeadroom, sponsoredFeeFloorWei, } from "@alejoamiras/quota-paymaster";
-import { AztecAddress } from "@aztec/aztec.js/addresses";
-import { Fr } from "@aztec/aztec.js/fields";
-import { getFeeJuiceBalance } from "@aztec/aztec.js/utils";
-import { DefaultEntrypoint } from "@aztec/entrypoints/default";
-import { EncodedAppEntrypointCalls } from "@aztec/entrypoints/encoding";
-import { Gas, GasFees, GasSettings } from "@aztec/stdlib/gas";
-import { ExecutionPayload } from "@aztec/stdlib/tx";
+import { AztecAddress } from "@aztec-labs/aztec.js/addresses";
+import { Fr } from "@aztec-labs/aztec.js/fields";
+import { getFeeJuiceBalance } from "@aztec-labs/aztec.js/utils";
+import { DefaultEntrypoint } from "@aztec-labs/entrypoints/default";
+import { EncodedAppEntrypointCalls } from "@aztec-labs/entrypoints/encoding";
+import { Gas, GasFees, GasSettings } from "@aztec-labs/stdlib/gas";
+import { ExecutionPayload } from "@aztec-labs/stdlib/tx";
 import { SponsoredFpcContract, SponsoredFpcContractArtifact, } from "./artifacts/SponsoredFpc.js";
+import { maxFeePerGasWithHeadroom, sponsoredFeeFloorWei, } from "./gas.js";
+import { SendOnceContext } from "./send-once.js";
 const ACCOUNT_MAX_CALLS = 5;
 export class SponsoredFpcClient {
     options;
@@ -19,7 +20,7 @@ export class SponsoredFpcClient {
             typeof options.address === "string"
                 ? AztecAddress.fromStringUnsafe(options.address)
                 : options.address;
-        this.sendContext = createSendOnceContext(options.nodeUrl);
+        this.sendContext = new SendOnceContext(options.nodeUrl);
     }
     async register() {
         const wallet = this.options.wallet;

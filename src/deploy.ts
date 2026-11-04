@@ -2,12 +2,12 @@ import {
   Contract,
   DeployMethod,
   getContractInstanceFromInstantiationParams,
-} from "@aztec/aztec.js/contracts";
-import { Fr } from "@aztec/aztec.js/fields";
-import { PublicKeys } from "@aztec/aztec.js/keys";
-import type { AztecAddress } from "@aztec/aztec.js/addresses";
-import type { Wallet } from "@aztec/aztec.js/wallet";
-import { getDefaultInitializer } from "@aztec/stdlib/abi";
+} from "@aztec-labs/aztec.js/contracts";
+import { Fr } from "@aztec-labs/aztec.js/fields";
+import { PublicKeys } from "@aztec-labs/aztec.js/keys";
+import type { AztecAddress } from "@aztec-labs/aztec.js/addresses";
+import type { Wallet } from "@aztec-labs/aztec.js/wallet";
+import { getDefaultInitializer } from "@aztec-labs/stdlib/abi";
 
 import { SponsoredFpcContractArtifact } from "./artifacts/SponsoredFpc.js";
 import { constructorArgs, type SponsoredFpcConfig } from "./config.js";

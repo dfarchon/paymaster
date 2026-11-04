@@ -32,10 +32,9 @@
     "test": "pnpm contract:test && tsx --test test/*.test.ts"
   },
   "dependencies": {
-    "@alejoamiras/quota-paymaster": "5.0.1-revision.2",
-    "@aztec/aztec.js": "5.2.0",
-    "@aztec/entrypoints": "5.2.0",
-    "@aztec/stdlib": "5.2.0"
+    "@aztec-labs/aztec.js": "6.0.0",
+    "@aztec-labs/entrypoints": "6.0.0",
+    "@aztec-labs/stdlib": "6.0.0"
   },
   "devDependencies": {
     "@types/node": "24.10.7",
@@ -44,8 +43,8 @@
     "typescript": "5.9.3"
   },
   "engines": {
-    "node": "24.19.0",
-    "pnpm": "11.28.0"
+    "node": "24.22.1",
+    "pnpm": "10.28.0"
   },
-  "packageManager": "pnpm@11.28.0"
+  "packageManager": "pnpm@10.28.0"
 }
