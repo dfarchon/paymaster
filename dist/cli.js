@@ -10,7 +10,7 @@ function option(name) {
 async function main() {
     const command = process.argv[2];
     if (command !== "deploy") {
-        throw new Error("Usage: allowlist-sponsored-fpc deploy --config <file> --context <module>");
+        throw new Error("Usage: paymaster deploy --config <file> --context <module>");
     }
     const configPath = option("--config");
     const contextPath = option("--context");

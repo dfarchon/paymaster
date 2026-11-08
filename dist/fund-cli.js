@@ -5,7 +5,7 @@ import { resolve } from "node:path";
 import { parseUnits } from "viem";
 import { claimFeeJuice, depositFeeJuice, parseFpcClaim, serializeFpcClaim, } from "./funding.js";
 function usage() {
-    throw new Error("Usage: allowlist-sponsored-fpc-fund <deposit|claim> --context <module> [options]\n" +
+    throw new Error("Usage: paymaster-fund <deposit|claim> --context <module> [options]\n" +
         "  deposit: --recipient <aztec-address> --amount <fee-juice> [--output <json>]\n" +
         "  claim:   --claim-file <json>");
 }

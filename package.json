@@ -1,12 +1,12 @@
 {
-  "name": "@dfarchon/allowlist-sponsored-fpc",
+  "name": "@dfarchon/paymaster",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "allowlist-sponsored-fpc": "./dist/cli.js",
-    "allowlist-sponsored-fpc-fund": "./dist/fund-cli.js"
+    "paymaster": "./dist/cli.js",
+    "paymaster-fund": "./dist/fund-cli.js"
   },
   "exports": {
     ".": {

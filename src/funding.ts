@@ -46,7 +46,7 @@ export async function depositFeeJuice(options: {
   const manager = await L1FeeJuicePortalManager.new(
     options.context.node,
     options.context.l1Client,
-    createLogger("allowlist-sponsored-fpc-funding"),
+    createLogger("paymaster-funding"),
   );
   const claim = await manager.bridgeTokensPublic(
     recipient,

@@ -12,7 +12,7 @@ export async function depositFeeJuice(options) {
     const recipient = typeof options.recipient === "string"
         ? AztecAddress.fromStringUnsafe(options.recipient)
         : options.recipient;
-    const manager = await L1FeeJuicePortalManager.new(options.context.node, options.context.l1Client, createLogger("allowlist-sponsored-fpc-funding"));
+    const manager = await L1FeeJuicePortalManager.new(options.context.node, options.context.l1Client, createLogger("paymaster-funding"));
     const claim = await manager.bridgeTokensPublic(recipient, options.amount, options.mint ?? false);
     return { ...claim, recipient };
 }

@@ -13,7 +13,7 @@ import {
 
 function usage(): never {
   throw new Error(
-    "Usage: allowlist-sponsored-fpc-fund <deposit|claim> --context <module> [options]\n" +
+    "Usage: paymaster-fund <deposit|claim> --context <module> [options]\n" +
       "  deposit: --recipient <aztec-address> --amount <fee-juice> [--output <json>]\n" +
       "  claim:   --claim-file <json>",
   );

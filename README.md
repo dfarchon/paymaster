@@ -1,6 +1,6 @@
-# Allowlist Sponsored FPC
+# Paymaster
 
-`@dfarchon/allowlist-sponsored-fpc` is an Aztec 6 project-sponsored fee
+`@dfarchon/paymaster` is an Aztec 6 project-sponsored fee
 paymaster. It pays transaction fees from the Fee Juice balance held by its own
 FPC address and restricts sponsored calls to an immutable list of target
 contracts and account classes.
@@ -19,10 +19,10 @@ deployment CLI.
 
 ## Packages
 
-- `@dfarchon/allowlist-sponsored-fpc`: contract artifact, SDK, funding helpers,
+- `@dfarchon/paymaster`: contract artifact, SDK, funding helpers,
   and deployment utilities.
-- `allowlist-sponsored-fpc`: deployment CLI.
-- `allowlist-sponsored-fpc-fund`: L1 deposit and L2 claim CLI.
+- `paymaster`: deployment CLI.
+- `paymaster-fund`: L1 deposit and L2 claim CLI.
 - `contracts/sponsored_fpc`: Noir FPC contract.
 
 Aztec CLI `6.0.0` and Node `24.22.1` are required.
@@ -43,7 +43,7 @@ an initializerless Schnorr account class.
 ### 1. Install the SDK
 
 ```sh
-pnpm add github:dfarchon/allowlist-sponsored-fpc#<commit>
+pnpm add github:dfarchon/paymaster#<commit>
 ```
 
 Pin a commit in production so the deployed artifact and SDK cannot drift.
@@ -88,7 +88,7 @@ export default async function createContext() {
 Deploy with:
 
 ```sh
-pnpm exec allowlist-sponsored-fpc deploy \
+pnpm exec paymaster deploy \
   --config ./config/example-app.json \
   --context ./deploy-context.ts
 ```
@@ -102,7 +102,7 @@ The FPC does not bridge or claim funds by itself. The project operator supplies
 a funding context containing an L1 wallet client and an Aztec operator wallet:
 
 ```sh
-pnpm exec allowlist-sponsored-fpc-fund deposit \
+pnpm exec paymaster-fund deposit \
   --context ./funding-context.ts \
   --recipient <SPONSORED_FPC_AZTEC_ADDRESS> \
   --amount 100 \
@@ -121,7 +121,7 @@ After the L1→L2 message is included, use the operator wallet in the same
 funding context:
 
 ```sh
-pnpm exec allowlist-sponsored-fpc-fund claim \
+pnpm exec paymaster-fund claim \
   --context ./funding-context.ts \
   --claim-file ./fpc-claim.json
 ```
@@ -168,10 +168,7 @@ and broadcast. The frontend never needs to call `sponsor_and_execute` directly.
 ## Funding library
 
 ```ts
-import {
-  claimFeeJuice,
-  depositFeeJuice,
-} from "@dfarchon/allowlist-sponsored-fpc";
+import { claimFeeJuice, depositFeeJuice } from "@dfarchon/paymaster";
 ```
 
 `depositFeeJuice` returns the claim secret, amount, message hash, and leaf
