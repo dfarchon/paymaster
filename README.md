@@ -72,8 +72,7 @@ environment references:
 
 The target allowlist is contract-address based. Every method on an allowed
 target is eligible, provided the call does not hide the user's sender. The SDK
-also exposes `isMethodSupported()` to check an address and, when a contract
-wrapper is supplied, the method name before sending.
+exposes `isContractSupported()` to query this allowlist.
 
 ### 3. Deploy the FPC
 
@@ -148,12 +147,8 @@ const fpc = new SponsoredFpcClient({
 });
 
 await fpc.register();
-const supported = await fpc.isMethodSupported(
-  exampleApp.address,
-  "increment",
-  exampleApp,
-);
-if (!supported) throw new Error("ExampleApp.increment is not sponsored");
+const supported = await fpc.isContractSupported(exampleApp.address);
+if (!supported) throw new Error("ExampleApp is not sponsored");
 await fpc.sendMethod({
   contract: exampleApp,
   method: "increment",
@@ -175,16 +170,12 @@ import { claimFeeJuice, depositFeeJuice } from "@dfarchon/paymaster";
 index. `claimFeeJuice` submits `FeeJuice.claim` from the operator wallet and
 credits the fixed FPC address.
 
-## Method support query
+## Contract support query
 
 ```ts
-const supported = await fpc.isMethodSupported(
-  targetAddress,
-  "methodName",
-  contractWrapper,
-);
+const supported = await fpc.isContractSupported(targetAddress);
 ```
 
 The current on-chain policy is target-level, not function-selector-level. The
-query returns false for a non-allowlisted target, and otherwise also checks the
-method exists in the supplied wrapper. It does not imply a selector-level rule.
+query returns false for a non-allowlisted target. It does not perform
+function-selector-level checks.

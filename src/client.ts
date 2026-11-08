@@ -30,10 +30,6 @@ export type SponsoredFpcClientOptions = {
   nodeUrl: string;
 };
 
-export type ContractMethodMap = {
-  methods: Record<string, unknown>;
-};
-
 export class SponsoredFpcClient {
   readonly address: AztecAddress;
   readonly sendContext: SendOnceContext;
@@ -71,19 +67,8 @@ export class SponsoredFpcClient {
     return values.filter((value) => !value.isZero());
   }
 
-  /**
-   * Check whether a contract method can be sent through this FPC.
-   *
-   * The on-chain policy is target-contract based, not selector based: every
-   * method on an allowlisted target is accepted as long as it preserves the
-   * sender. When a contract wrapper is supplied, this also checks that the
-   * requested method exists in that wrapper.
-   */
-  async isMethodSupported(
-    target: AztecAddress | string,
-    method: string,
-    contract?: ContractMethodMap,
-  ): Promise<boolean> {
+  /** Check whether a target contract is allowlisted by this FPC instance. */
+  async isContractSupported(target: AztecAddress | string): Promise<boolean> {
     const address =
       typeof target === "string"
         ? AztecAddress.fromStringUnsafe(target)
@@ -91,10 +76,7 @@ export class SponsoredFpcClient {
     const allowed = (await this.allowedTargets()).some((value) =>
       value.equals(address),
     );
-    if (!allowed) return false;
-    return (
-      contract === undefined || typeof contract.methods[method] === "function"
-    );
+    return allowed;
   }
 
   async sendMethod(args: {
