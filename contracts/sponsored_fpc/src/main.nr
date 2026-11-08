@@ -1,6 +1,6 @@
 use aztec::macros::aztec;
 
-/// A fee-paying contract for Dark Forest with no per-user, per-day, seat, or
+/// A project fee-paying contract with no per-user, per-day, seat, or
 /// generation quota. Its FeeJuice balance is the total sponsorship budget.
 #[aztec]
 contract SponsoredFpc {

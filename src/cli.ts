@@ -22,7 +22,7 @@ async function main() {
   const command = process.argv[2];
   if (command !== "deploy") {
     throw new Error(
-      "Usage: sponsored-fpc deploy --config <file> --context <module>",
+      "Usage: allowlist-sponsored-fpc deploy --config <file> --context <module>",
     );
   }
   const configPath = option("--config");

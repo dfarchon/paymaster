@@ -34,6 +34,32 @@ export class SponsoredFpcClient {
     async balance() {
         return getFeeJuiceBalance(this.address, this.options.node);
     }
+    /** Return the target contracts accepted by this deployed FPC instance. */
+    async allowedTargets() {
+        if (!this.contract)
+            await this.register();
+        const result = await this.contract.methods.get_allowed_targets().simulate();
+        const values = (result.result ??
+            result);
+        return values.filter((value) => !value.isZero());
+    }
+    /**
+     * Check whether a contract method can be sent through this FPC.
+     *
+     * The on-chain policy is target-contract based, not selector based: every
+     * method on an allowlisted target is accepted as long as it preserves the
+     * sender. When a contract wrapper is supplied, this also checks that the
+     * requested method exists in that wrapper.
+     */
+    async isMethodSupported(target, method, contract) {
+        const address = typeof target === "string"
+            ? AztecAddress.fromStringUnsafe(target)
+            : target;
+        const allowed = (await this.allowedTargets()).some((value) => value.equals(address));
+        if (!allowed)
+            return false;
+        return (contract === undefined || typeof contract.methods[method] === "function");
+    }
     async sendMethod(args) {
         const requested = await args.contract.methods[args.method](...args.args).request();
         const calls = (requested.calls ??

@@ -12,6 +12,9 @@ export type SponsoredFpcClientOptions = {
     gasProfile: GasProfile;
     nodeUrl: string;
 };
+export type ContractMethodMap = {
+    methods: Record<string, unknown>;
+};
 export declare class SponsoredFpcClient {
     private readonly options;
     readonly address: AztecAddress;
@@ -20,6 +23,17 @@ export declare class SponsoredFpcClient {
     constructor(options: SponsoredFpcClientOptions);
     register(): Promise<void>;
     balance(): Promise<bigint>;
+    /** Return the target contracts accepted by this deployed FPC instance. */
+    allowedTargets(): Promise<AztecAddress[]>;
+    /**
+     * Check whether a contract method can be sent through this FPC.
+     *
+     * The on-chain policy is target-contract based, not selector based: every
+     * method on an allowlisted target is accepted as long as it preserves the
+     * sender. When a contract wrapper is supplied, this also checks that the
+     * requested method exists in that wrapper.
+     */
+    isMethodSupported(target: AztecAddress | string, method: string, contract?: ContractMethodMap): Promise<boolean>;
     sendMethod(args: {
         contract: {
             methods: Record<string, ContractMethod>;

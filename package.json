@@ -1,11 +1,12 @@
 {
-  "name": "@dfarchon/sponsored-fpc",
+  "name": "@dfarchon/allowlist-sponsored-fpc",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "sponsored-fpc": "./dist/cli.js"
+    "allowlist-sponsored-fpc": "./dist/cli.js",
+    "allowlist-sponsored-fpc-fund": "./dist/fund-cli.js"
   },
   "exports": {
     ".": {
@@ -33,8 +34,10 @@
   },
   "dependencies": {
     "@aztec-labs/aztec.js": "6.0.0",
+    "@aztec-labs/ethereum": "6.0.0",
     "@aztec-labs/entrypoints": "6.0.0",
-    "@aztec-labs/stdlib": "6.0.0"
+    "@aztec-labs/stdlib": "6.0.0",
+    "viem": "2.38.2"
   },
   "devDependencies": {
     "@types/node": "24.10.7",
