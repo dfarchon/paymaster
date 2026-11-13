@@ -3,7 +3,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { pathToFileURL } from "node:url";
 import { resolve } from "node:path";
 import { parseUnits } from "viem";
-import type { FpcFundingContext } from "./funding.js";
+import type { FpcDepositContext } from "./funding.js";
 import {
   claimFeeJuice,
   depositFeeJuice,
@@ -24,11 +24,11 @@ function option(name: string): string | undefined {
   return index < 0 ? undefined : process.argv[index + 1];
 }
 
-async function loadContext(): Promise<FpcFundingContext> {
+async function loadContext(): Promise<FpcDepositContext> {
   const contextPath = option("--context");
   if (!contextPath) usage();
   const loaded = await import(pathToFileURL(resolve(contextPath)).href);
-  const createContext = loaded.default as () => Promise<FpcFundingContext>;
+  const createContext = loaded.default as () => Promise<FpcDepositContext>;
   if (typeof createContext !== "function")
     throw new Error("Funding context must default-export an async factory.");
   return createContext();

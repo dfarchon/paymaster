@@ -13,14 +13,17 @@ import { createLogger } from "@aztec-labs/aztec.js/log";
 export type FpcFundingContext = {
   /** Aztec node used to discover the L1 portals and submit the claim. */
   node: AztecNode;
-  /** L1 wallet client used to approve and deposit the L1 fee token. */
-  l1Client: ExtendedViemWalletClient;
   /** Aztec wallet used by the operator to submit the L2 claim. */
   wallet: Wallet;
   /** Aztec account that pays the L2 claim transaction fee. */
   claimer: AztecAddress;
   /** Optional fee settings for the operator's claim transaction. */
   sendOptions?: Record<string, unknown>;
+};
+
+export type FpcDepositContext = FpcFundingContext & {
+  /** L1 wallet client used to approve and deposit the L1 fee token. */
+  l1Client: ExtendedViemWalletClient;
 };
 
 export type FpcClaim = Pick<
@@ -34,7 +37,7 @@ export type FpcClaim = Pick<
  * but the balance is always credited to the fixed recipient.
  */
 export async function depositFeeJuice(options: {
-  context: Pick<FpcFundingContext, "node" | "l1Client">;
+  context: FpcDepositContext;
   recipient: AztecAddress | string;
   amount: bigint;
   mint?: boolean;

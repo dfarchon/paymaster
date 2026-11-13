@@ -1,0 +1,13 @@
+{
+  "name": "counter-testnet",
+  "description": "Project paymaster for the Counter example",
+  "maxFeeWei": "25000000000000000000",
+  "allowedTargets": [{ "name": "Counter", "address": "env:COUNTER_ADDRESS" }],
+  "allowedAccountClasses": [
+    {
+      "name": "SchnorrInitializerlessAccount",
+      "classId": "env:ACCOUNT_CLASS_ID"
+    }
+  ],
+  "requireUnpublishedAccounts": true
+}

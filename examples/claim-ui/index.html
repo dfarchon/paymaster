@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Paymaster Fee Juice Claim</title>
+    <style>
+      body {
+        max-width: 720px;
+        margin: 3rem auto;
+        padding: 0 1rem;
+        font:
+          16px system-ui,
+          sans-serif;
+        background: #111;
+        color: #eee;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+      label {
+        display: block;
+        margin-top: 1rem;
+      }
+      input {
+        box-sizing: border-box;
+        width: 100%;
+        margin-top: 0.35rem;
+        padding: 0.7rem;
+        background: #222;
+        color: #eee;
+        border: 1px solid #555;
+        border-radius: 4px;
+      }
+      button {
+        margin-top: 1.5rem;
+        padding: 0.7rem 1.1rem;
+        cursor: pointer;
+      }
+      #status {
+        margin-top: 1rem;
+        white-space: pre-wrap;
+      }
+      .hint {
+        color: #aaa;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Paymaster Fee Juice claim</h1>
+    <p class="hint">
+      This page talks only to the local claim server. The claim secret is never
+      logged.
+    </p>
+    <button id="create-account" type="button">
+      Create local Aztec claimer account
+    </button>
+    <pre id="account" class="hint"></pre>
+    <form id="claim">
+      <label
+        >Paymaster recipient <input name="recipient" required placeholder="0x…"
+      /></label>
+      <label
+        >Claim amount (raw 18-decimal value)
+        <input name="claimAmount" required placeholder="100000000000000000000"
+      /></label>
+      <label
+        >Claim secret <input name="claimSecret" required placeholder="0x…"
+      /></label>
+      <label
+        >Message leaf index
+        <input name="messageLeafIndex" required placeholder="0"
+      /></label>
+      <button type="submit">Claim to Paymaster</button>
+    </form>
+    <div id="status"></div>
+    <script>
+      document
+        .querySelector("#claim")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const status = document.querySelector("#status");
+          const data = Object.fromEntries(new FormData(event.target));
+          status.textContent = "Submitting claim…";
+          try {
+            const response = await fetch("/api/claim", {
+              method: "POST",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify(data),
+            });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || "Claim failed");
+            status.textContent = `Claim submitted.\n${result.txHash || JSON.stringify(result)}`;
+            event.target.reset();
+          } catch (error) {
+            status.textContent = `Error: ${error.message}`;
+          }
+        });
+      document
+        .querySelector("#create-account")
+        .addEventListener("click", async () => {
+          const output = document.querySelector("#account");
+          output.textContent = "Creating account…";
+          const response = await fetch("/api/account", { method: "POST" });
+          const result = await response.json();
+          if (!response.ok)
+            return (output.textContent = `Error: ${result.error}`);
+          output.textContent = `Address: ${result.address}\nSecret key (backup): ${result.secretKey}\nSigning key (backup): ${result.signingKey}\nSalt: ${result.salt}\n\nKeep these values private. The server keeps the wallet in memory only.`;
+        });
+    </script>
+  </body>
+</html>

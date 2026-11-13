@@ -1,3 +1,2 @@
 [workspace]
-members = ["contracts/sponsored_fpc"]
-
+members = ["contracts/sponsored_fpc", "examples/counter/contracts"]

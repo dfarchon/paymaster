@@ -28,15 +28,20 @@
     "build": "pnpm contract:build && tsc -p tsconfig.json",
     "contract:build": "aztec compile && aztec codegen ./target -o ./target --force && mkdir -p ./src/artifacts && cp ./target/SponsoredFpc.ts ./target/sponsored_fpc-SponsoredFpc.json ./src/artifacts/",
     "contract:test": "aztec-nargo test --workspace",
+    "claim-ui": "tsx examples/claim-ui/server.ts",
+    "counter-ui": "tsx examples/counter/app/server.ts",
     "format": "aztec-nargo fmt --workspace && prettier --write .",
     "format:check": "aztec-nargo fmt --workspace --check && prettier --check .",
     "test": "pnpm contract:test && tsx --test test/*.test.ts"
   },
   "dependencies": {
     "@aztec-labs/aztec.js": "6.0.0",
-    "@aztec-labs/ethereum": "6.0.0",
     "@aztec-labs/entrypoints": "6.0.0",
+    "@aztec-labs/ethereum": "6.0.0",
+    "@aztec-labs/foundation": "6.0.0",
+    "@aztec-labs/noir-contracts.js": "6.0.0",
     "@aztec-labs/stdlib": "6.0.0",
+    "@aztec-labs/wallets": "6.0.0",
     "viem": "2.38.2"
   },
   "devDependencies": {
